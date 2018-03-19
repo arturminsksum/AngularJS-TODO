@@ -7,33 +7,43 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style>
-    .strike {
-      text-decoration: line-through;
-    }
   </style>
 </head>
 
 <body>
   <div ng-app="app">
-    <div ng-controller="toDoController">
+    <div ng-controller="activeTasksController">
 
       <h3>Active ({{ tasks.length }})</h3>
       <span ng-if="tasks.length === 0">You have no active tasks!</span>
       <ul ng-repeat="task in tasks">
         <li>
-          <input type="checkbox" ng-click="toggleTaskStatus(task)" />
-          <span ng-class="{'strike': task.completed}">{{ task.text }}</span>
-          <button ng-click="removeTask(task)">x</button>
+          <span>{{ task.text }}</span>
+          <button ng-click="completeTask(task)">complete</button>
+          <button ng-click="removeTask(task)">delete</button>
           <br> Created: {{task.created}}
         </li>
       </ul>
 
-      <h2>Add a Task</h2>
+      <h3>Add a Task</h3>
       <form>
         <input type="text" placeholder="Description" ng-model="newTaskName" />
         <input type="button" value="Add" ng-click="addTask()" />
       </form>
 
+    </div>
+
+    <div ng-controller="completedTasksController">
+
+      <h3>Completed ({{ tasks.length }})</h3>
+      <span ng-if="tasks.length === 0">You have no completed tasks!</span>
+      <ul ng-repeat="task in tasks">
+        <li>
+          <span>{{ task.text }}</span>
+          <button ng-click="changeToActive(task)">active</button>
+          <br> Created: {{task.created}}
+        </li>
+      </ul>
     </div>
   </div>
 

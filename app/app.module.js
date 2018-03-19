@@ -3,12 +3,7 @@ import angular from 'angular';
 export const app = angular.module('app', []);
 
 app.factory('todoFactory', () => {
-  var taskList = [
-    {
-      text: 'Learn JS',
-      created: '2018-01-19T21:05:36.030Z',
-      completed: false,
-    },
+  let taskListActive = [
     {
       text: 'Learn NodeJS',
       created: '2018-02-19T21:05:36.030Z',
@@ -20,32 +15,61 @@ app.factory('todoFactory', () => {
       completed: false,
     },
   ];
+
+  let taskListDone = [
+    {
+      text: 'Learn JS',
+      created: '2018-01-19T21:05:36.030Z',
+      completed: false,
+    },
+  ];
+
   return {
-    getTasks() {
-      return taskList;
+    // active tasks
+    getActiveTasks() {
+      return taskListActive;
     },
     addTask(text) {
-      taskList.push({
+      taskListActive.push({
         text,
         created: new Date().toJSON(),
-        completed: false,
       });
     },
-    removeTask(text) {
-      taskList.splice(taskList.indexOf(text), 1);
+    removeTask(task) {
+      taskListActive.splice(taskListActive.indexOf(task), 1);
     },
-    toggleTaskStatus(text) {
-      const taskOrder = taskList.indexOf(text);
-      taskList[taskOrder].completed = !taskList[taskOrder].completed;
+    moveToCompleted(task) {
+      taskListDone.push(task);
+      taskListActive.splice(taskListActive.indexOf(task), 1);
+    },
+    // completed tasks
+    getCompletedTasks() {
+      return taskListDone;
+    },
+    moveToActive(task) {
+      taskListActive.push(task);
+      taskListDone.splice(taskListDone.indexOf(task), 1);
     },
   };
 });
 
-app.controller('toDoController', [
+app.controller('completedTasksController', [
   '$scope',
   'todoFactory',
   ($scope, todoFactory) => {
-    $scope.tasks = todoFactory.getTasks();
+    $scope.tasks = todoFactory.getCompletedTasks();
+
+    $scope.changeToActive = task => {
+      todoFactory.moveToActive(task);
+    };
+  },
+]);
+
+app.controller('activeTasksController', [
+  '$scope',
+  'todoFactory',
+  ($scope, todoFactory) => {
+    $scope.tasks = todoFactory.getActiveTasks();
     $scope.newTaskName = '';
 
     $scope.addTask = () => {
@@ -53,12 +77,12 @@ app.controller('toDoController', [
       $scope.newTaskName = '';
     };
 
-    $scope.removeTask = text => {
-      todoFactory.removeTask(text);
+    $scope.removeTask = task => {
+      todoFactory.removeTask(task);
     };
 
-    $scope.toggleTaskStatus = text => {
-      todoFactory.toggleTaskStatus(text);
+    $scope.completeTask = task => {
+      todoFactory.moveToCompleted(task);
     };
   },
 ]);
