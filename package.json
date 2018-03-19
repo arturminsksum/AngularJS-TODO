@@ -5,9 +5,9 @@
   "author": "artur.minsk.sum",
   "license": "MIT",
   "scripts": {
-    "webpack": "webpack --mode development",
-    "webpack:watch": "webpack --mode development --watch",
-    "webpack:server": "webpack-dev-server --mode development --inline --hot"
+    "build": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
+    "server": "webpack-dev-server --mode development"
   },
   "dependencies": {
     "angular": "^1.6.9"

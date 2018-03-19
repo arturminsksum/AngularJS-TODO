@@ -12,6 +12,10 @@ module.exports = {
     extensions: ['.js', '.html'],
   },
   devtool: 'source-map',
+  devServer: {
+    inline: true,
+    hot: true,
+  },
   module: {
     rules: [
       {

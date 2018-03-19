@@ -2,17 +2,41 @@ import angular from 'angular';
 
 export const app = angular.module('app', []);
 
-app.factory('todoFactory', function() {
-  var taskList = ['New Delhi', 'Mumbai', 'Kolkata', 'Chennai'];
+app.factory('todoFactory', () => {
+  var taskList = [
+    {
+      text: 'Learn JS',
+      created: '2018-01-19T21:05:36.030Z',
+      completed: false,
+    },
+    {
+      text: 'Learn NodeJS',
+      created: '2018-02-19T21:05:36.030Z',
+      completed: false,
+    },
+    {
+      text: 'Learn AngularJS',
+      created: '2018-03-19T21:05:36.030Z',
+      completed: false,
+    },
+  ];
   return {
-    getTasks: function getTasks() {
+    getTasks() {
       return taskList;
     },
-    addTask: function addTask(text) {
-      taskList.push(text);
+    addTask(text) {
+      taskList.push({
+        text,
+        created: new Date().toJSON(),
+        completed: false,
+      });
     },
-    removeTask: function removeTask(text) {
+    removeTask(text) {
       taskList.splice(taskList.indexOf(text), 1);
+    },
+    toggleTaskStatus(text) {
+      const taskOrder = taskList.indexOf(text);
+      taskList[taskOrder].completed = !taskList[taskOrder].completed;
     },
   };
 });
@@ -20,17 +44,21 @@ app.factory('todoFactory', function() {
 app.controller('toDoController', [
   '$scope',
   'todoFactory',
-  function($scope, todoFactory) {
+  ($scope, todoFactory) => {
     $scope.tasks = todoFactory.getTasks();
     $scope.newTaskName = '';
 
-    $scope.addTask = function() {
+    $scope.addTask = () => {
       todoFactory.addTask($scope.newTaskName);
       $scope.newTaskName = '';
     };
 
-    $scope.removeTask = function(text) {
+    $scope.removeTask = text => {
       todoFactory.removeTask(text);
+    };
+
+    $scope.toggleTaskStatus = text => {
+      todoFactory.toggleTaskStatus(text);
     };
   },
 ]);
