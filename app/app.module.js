@@ -6,12 +6,17 @@ app.factory('todoFactory', () => {
   let taskListActive = [
     {
       text: 'Learn NodeJS',
-      created: '2018-02-19T21:05:36.030Z',
+      created: '2018-03-15T21:05:36.030Z',
       completed: false,
     },
     {
       text: 'Learn AngularJS',
-      created: '2018-03-19T21:05:36.030Z',
+      created: '2018-03-18T21:05:36.030Z',
+      completed: false,
+    },
+    {
+      text: 'Learn ReactJS',
+      created: '2018-03-13T21:05:36.030Z',
       completed: false,
     },
   ];
@@ -19,7 +24,7 @@ app.factory('todoFactory', () => {
   let taskListDone = [
     {
       text: 'Learn JS',
-      created: '2018-01-19T21:05:36.030Z',
+      created: '2018-02-19T21:05:36.030Z',
       completed: false,
     },
   ];
@@ -83,6 +88,15 @@ app.controller('activeTasksController', [
 
     $scope.completeTask = task => {
       todoFactory.moveToCompleted(task);
+    };
+
+    // days
+    $scope.daysPassed = created => {
+      const createdDate = new Date(created);
+      const now = new Date();
+      const msPassed = new Date() - createdDate;
+      const daysPassed = Math.floor(msPassed / (24 * 60 * 60 * 1000));
+      return daysPassed;
     };
   },
 ]);

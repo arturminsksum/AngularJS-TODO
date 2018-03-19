@@ -7,21 +7,27 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style>
+    [ng\:cloak],
+    [ng-cloak],
+    .ng-cloak {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
-  <div ng-app="app">
+  <div ng-app="app" ng-cloak>
     <div ng-controller="activeTasksController">
 
       <h3>Active ({{ tasks.length }})</h3>
       <span ng-if="tasks.length === 0">You have no active tasks!</span>
-      <ul ng-repeat="task in tasks">
+      <ul ng-repeat="task in tasks  | orderBy:'created'">
         <li>
           <span>{{ task.text }}</span>
           <button ng-click="completeTask(task)">complete</button>
           <button ng-click="removeTask(task)">delete</button>
-          <br> Created: {{task.created}}
+          <br> Created: {{task.created | date : 'mediumDate'}}
+          <br> Days passed: {{daysPassed(task.created)}}
         </li>
       </ul>
 
@@ -41,7 +47,7 @@
         <li>
           <span>{{ task.text }}</span>
           <button ng-click="changeToActive(task)">active</button>
-          <br> Created: {{task.created}}
+          <br> Created: {{task.created | date : 'mediumDate'}}
         </li>
       </ul>
     </div>
