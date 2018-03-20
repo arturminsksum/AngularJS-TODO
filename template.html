@@ -16,41 +16,15 @@
 </head>
 
 <body>
+
   <div ng-app="app" ng-cloak>
-    <div ng-controller="activeTasksController">
 
-      <h3>Active ({{ tasks.length }})</h3>
-      <span ng-if="tasks.length === 0">You have no active tasks!</span>
-      <ul ng-repeat="task in tasks  | orderBy:'created'">
-        <li>
-          <span>{{ task.text }}</span>
-          <button ng-click="completeTask(task)">complete</button>
-          <button ng-click="removeTask(task)">delete</button>
-          <br> Created: {{task.created | date : 'mediumDate'}}
-          <br> Days passed: {{daysPassed(task.created)}}
-        </li>
-      </ul>
+    <add-task></add-task>
 
-      <h3>Add a Task</h3>
-      <form>
-        <input type="text" placeholder="Description" ng-model="newTaskName" />
-        <input type="button" value="Add" ng-click="addTask()" />
-      </form>
+    <active-task-list></active-task-list>
 
-    </div>
+    <completed-task-list></completed-task-list>
 
-    <div ng-controller="completedTasksController">
-
-      <h3>Completed ({{ tasks.length }})</h3>
-      <span ng-if="tasks.length === 0">You have no completed tasks!</span>
-      <ul ng-repeat="task in tasks">
-        <li>
-          <span>{{ task.text }}</span>
-          <button ng-click="changeToActive(task)">active</button>
-          <br> Created: {{task.created | date : 'mediumDate'}}
-        </li>
-      </ul>
-    </div>
   </div>
 
 </body>

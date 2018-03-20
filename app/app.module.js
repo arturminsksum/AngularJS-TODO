@@ -1,102 +1,15 @@
 import angular from 'angular';
 
-export const app = angular.module('app', []);
+require('./active-task-list/active-task-list.module');
+require('./completed-task-list/completed-task-list.module');
+require('./add-task/add-task.module');
 
-app.factory('todoFactory', () => {
-  let taskListActive = [
-    {
-      text: 'Learn NodeJS',
-      created: '2018-03-15T21:05:36.030Z',
-      completed: false,
-    },
-    {
-      text: 'Learn AngularJS',
-      created: '2018-03-18T21:05:36.030Z',
-      completed: false,
-    },
-    {
-      text: 'Learn ReactJS',
-      created: '2018-03-13T21:05:36.030Z',
-      completed: false,
-    },
-  ];
+import taskFactory from './factories/tasks-factory';
 
-  let taskListDone = [
-    {
-      text: 'Learn JS',
-      created: '2018-02-19T21:05:36.030Z',
-      completed: false,
-    },
-  ];
-
-  return {
-    // active tasks
-    getActiveTasks() {
-      return taskListActive;
-    },
-    addTask(text) {
-      taskListActive.push({
-        text,
-        created: new Date().toJSON(),
-      });
-    },
-    removeTask(task) {
-      taskListActive.splice(taskListActive.indexOf(task), 1);
-    },
-    moveToCompleted(task) {
-      taskListDone.push(task);
-      taskListActive.splice(taskListActive.indexOf(task), 1);
-    },
-    // completed tasks
-    getCompletedTasks() {
-      return taskListDone;
-    },
-    moveToActive(task) {
-      taskListActive.push(task);
-      taskListDone.splice(taskListDone.indexOf(task), 1);
-    },
-  };
-});
-
-app.controller('completedTasksController', [
-  '$scope',
-  'todoFactory',
-  ($scope, todoFactory) => {
-    $scope.tasks = todoFactory.getCompletedTasks();
-
-    $scope.changeToActive = task => {
-      todoFactory.moveToActive(task);
-    };
-  },
+export const app = angular.module('app', [
+  'activeTaskList',
+  'completedTaskList',
+  'addTask',
 ]);
 
-app.controller('activeTasksController', [
-  '$scope',
-  'todoFactory',
-  ($scope, todoFactory) => {
-    $scope.tasks = todoFactory.getActiveTasks();
-    $scope.newTaskName = '';
-
-    $scope.addTask = () => {
-      todoFactory.addTask($scope.newTaskName);
-      $scope.newTaskName = '';
-    };
-
-    $scope.removeTask = task => {
-      todoFactory.removeTask(task);
-    };
-
-    $scope.completeTask = task => {
-      todoFactory.moveToCompleted(task);
-    };
-
-    // days
-    $scope.daysPassed = created => {
-      const createdDate = new Date(created);
-      const now = new Date();
-      const msPassed = new Date() - createdDate;
-      const daysPassed = Math.floor(msPassed / (24 * 60 * 60 * 1000));
-      return daysPassed;
-    };
-  },
-]);
+app.factory('taskFactory', taskFactory);
