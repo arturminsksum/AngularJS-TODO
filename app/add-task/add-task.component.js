@@ -7,8 +7,10 @@ angular.module('addTask').component('addTask', {
       $scope.newTaskName = '';
 
       $scope.addTask = () => {
-        taskFactory.addTask($scope.newTaskName);
-        $scope.newTaskName = '';
+        if ($scope.addTaskForm.$valid) {
+          taskFactory.addTask($scope.newTaskName);
+          $scope.newTaskName = '';
+        }
       };
     },
   ],
