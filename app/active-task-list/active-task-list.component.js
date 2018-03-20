@@ -5,12 +5,6 @@ angular.module('activeTaskList').component('activeTaskList', {
     'taskFactory',
     ($scope, taskFactory) => {
       $scope.tasks = taskFactory.getActiveTasks();
-      // $scope.newTaskName = '';
-
-      // $scope.addTask = () => {
-      //   taskFactory.addTask($scope.newTaskName);
-      //   $scope.newTaskName = '';
-      // };
 
       $scope.removeTask = task => {
         taskFactory.removeTask(task);

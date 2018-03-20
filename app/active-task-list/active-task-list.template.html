@@ -1,11 +1,11 @@
 <h3>Active ({{ tasks.length }})</h3>
 <span ng-if="tasks.length === 0">You have no active tasks!</span>
-<ul ng-repeat="task in tasks  | orderBy:'created'">
+<ul ng-repeat="task in tasks | orderBy: 'created | daysPassed'">
   <li>
     <span>{{ task.text }}</span>
     <button ng-click="completeTask(task)">complete</button>
     <button ng-click="removeTask(task)">delete</button>
     <br> Created: {{task.created | date : 'mediumDate'}}
-    <br> Days passed: {{daysPassed(task.created)}}
+    <br> Days passed: {{task.created | daysPassed}}
   </li>
 </ul>

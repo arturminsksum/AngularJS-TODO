@@ -1,11 +1,12 @@
 <div>
   <h3>Completed ({{ tasks.length }})</h3>
   <span ng-if="tasks.length === 0">You have no completed tasks!</span>
-  <ul ng-repeat="task in tasks">
+  <ul ng-repeat="task in tasks | orderBy: 'created | daysPassed'">
     <li>
       <span>{{ task.text }}</span>
       <button ng-click="changeToActive(task)">active</button>
       <br> Created: {{task.created | date : 'mediumDate'}}
+      <br> Days passed: {{task.created | daysPassed}}
     </li>
   </ul>
 </div>

@@ -1,29 +1,10 @@
-export default () => {
-  let taskListActive = [
-    {
-      text: 'Learn NodeJS',
-      created: '2018-03-15T21:05:36.030Z',
-      completed: false,
-    },
-    {
-      text: 'Learn AngularJS',
-      created: '2018-03-18T21:05:36.030Z',
-      completed: false,
-    },
-    {
-      text: 'Learn ReactJS',
-      created: '2018-03-13T21:05:36.030Z',
-      completed: false,
-    },
-  ];
+import taskListActiveJSON from '../json/task-list-active.json';
+import taskListCompletedJSON from '../json/task-list-completed.json';
 
-  let taskListDone = [
-    {
-      text: 'Learn JS',
-      created: '2018-02-19T21:05:36.030Z',
-      completed: false,
-    },
-  ];
+export default () => {
+  let taskListActive = taskListActiveJSON;
+
+  let taskListComleted = taskListCompletedJSON;
 
   return {
     // active tasks
@@ -40,16 +21,16 @@ export default () => {
       taskListActive.splice(taskListActive.indexOf(task), 1);
     },
     moveToCompleted(task) {
-      taskListDone.push(task);
+      taskListComleted.push(task);
       taskListActive.splice(taskListActive.indexOf(task), 1);
     },
     // completed tasks
     getCompletedTasks() {
-      return taskListDone;
+      return taskListComleted;
     },
     moveToActive(task) {
       taskListActive.push(task);
-      taskListDone.splice(taskListDone.indexOf(task), 1);
+      taskListComleted.splice(taskListComleted.indexOf(task), 1);
     },
   };
 };

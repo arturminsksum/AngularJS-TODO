@@ -6,6 +6,8 @@ require('./add-task/add-task.module');
 
 import taskFactory from './factories/tasks-factory';
 
+import daysPassed from './filters/days-passed';
+
 export const app = angular.module('app', [
   'activeTaskList',
   'completedTaskList',
@@ -13,3 +15,5 @@ export const app = angular.module('app', [
 ]);
 
 app.factory('taskFactory', taskFactory);
+
+app.filter('daysPassed', daysPassed);
