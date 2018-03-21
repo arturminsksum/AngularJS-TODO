@@ -1,0 +1,13 @@
+<div ng-show="state.edit">
+  <h3>Edit a Task</h3>
+  <form name="editTaskForm" ng-submit="editTask()" novalidate>
+    <input type="text" name="editDescription" placeholder="Description" ng-model="state.task.text" ng-model-options="{ updateOn: 'blur' }"
+      ng-required="true" ng-minlength="20" />
+    <input type="submit" value="Save" />
+    <br>
+    <div ng-show="editTaskForm.$submitted">
+      <span ng-show="editTaskForm.editDescription.$error.minlength">Min description length 20 characters.</span>
+      <span ng-show="editTaskForm.editDescription.$error.required">Please add description.</span>
+    </div>
+  </form>
+</div>

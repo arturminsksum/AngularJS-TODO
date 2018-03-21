@@ -2,7 +2,7 @@
 <span ng-if="tasks.length === 0">You have no active tasks!</span>
 <ul ng-repeat="task in tasks | orderBy: 'created | daysPassed'">
   <li>
-    <span>{{ task.text }}</span>
+    <span ng-click="editTask(task)">{{ task.text }}</span>
     <button ng-click="completeTask(task)">complete</button>
     <button ng-click="removeTask(task)">delete</button>
     <br> Created: {{task.created | date : 'mediumDate'}}

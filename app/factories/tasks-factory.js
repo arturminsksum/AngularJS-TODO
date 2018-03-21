@@ -1,10 +1,16 @@
 import taskListActiveJSON from '../json/task-list-active.json';
 import taskListCompletedJSON from '../json/task-list-completed.json';
+import { findIndex } from 'rxjs/operator/findIndex';
 
 export default () => {
   let taskListActive = taskListActiveJSON;
 
   let taskListComleted = taskListCompletedJSON;
+
+  let editState = {
+    edit: false,
+    task: {},
+  };
 
   return {
     // active tasks
@@ -31,6 +37,21 @@ export default () => {
     moveToActive(task) {
       taskListActive.push(task);
       taskListComleted.splice(taskListComleted.indexOf(task), 1);
+    },
+    // edit task
+    getEditState() {
+      return editState;
+    },
+    setEditState({ text, created }) {
+      editState.edit = true;
+      editState.task = { text, created };
+    },
+    editTask() {
+      editState.edit = false;
+      const taskIndex = taskListActive.findIndex(
+        task => task.created === editState.task.created,
+      );
+      taskListActive.splice(taskIndex, 1, editState.task);
     },
   };
 };
