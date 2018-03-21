@@ -17,6 +17,12 @@ angular.module('activeTaskList').component('activeTaskList', {
       $scope.editTask = task => {
         taskFactory.setEditState(task);
       };
+
+      // sorting
+      $scope.sortParam = 'created | daysPassed';
+      $scope.sortBy = function(sortParam) {
+        $scope.sortParam = sortParam;
+      };
     },
   ],
 });
