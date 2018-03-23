@@ -1,11 +1,17 @@
-import taskListActiveJSON from '../json/task-list-active.json';
-import taskListCompletedJSON from '../json/task-list-completed.json';
-import { findIndex } from 'rxjs/operator/findIndex';
+export default $resource => {
+  let taskListActive = $resource('./app/json/task-list-active.json').query(
+    { method: 'GET' },
+    response => {
+      return response;
+    },
+  );
 
-export default () => {
-  let taskListActive = taskListActiveJSON;
-
-  let taskListComleted = taskListCompletedJSON;
+  let taskListComleted = $resource('./app/json/task-list-completed.json').query(
+    { method: 'GET' },
+    response => {
+      return response;
+    },
+  );
 
   return {
     // active tasks

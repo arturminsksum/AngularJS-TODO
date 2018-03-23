@@ -1,5 +1,6 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
+import ngResource from 'angular-resource';
 
 require('./active-task-list/active-task-list.module');
 require('./completed-task-list/completed-task-list.module');
@@ -16,8 +17,9 @@ angular
     'addTask',
     'editTask',
     ngRoute,
+    ngResource,
   ])
-  .factory('taskFactory', taskFactory)
+  .factory('taskFactory', ['$resource', taskFactory])
   .filter('daysPassed', daysPassed)
   .config([
     '$locationProvider',
