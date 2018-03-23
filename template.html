@@ -16,14 +16,11 @@
 <body>
 
   <div ng-app="app" ng-cloak>
-
-    <add-task></add-task>
-
-    <edit-task></edit-task>
-
-    <active-task-list></active-task-list>
-
-    <completed-task-list></completed-task-list>
+    <nav>
+      <a href="#!/">Home</a>
+      <a href="#!/add">Add task</a>
+    </nav>
+    <div ng-view></div>
 
   </div>
 

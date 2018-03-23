@@ -7,11 +7,6 @@ export default () => {
 
   let taskListComleted = taskListCompletedJSON;
 
-  let editState = {
-    edit: false,
-    task: {},
-  };
-
   return {
     // active tasks
     getActiveTasks() {
@@ -19,6 +14,7 @@ export default () => {
     },
     addTask(text) {
       taskListActive.push({
+        id: Date.now(),
         text,
         created: new Date().toJSON(),
       });
@@ -39,19 +35,9 @@ export default () => {
       taskListComleted.splice(taskListComleted.indexOf(task), 1);
     },
     // edit task
-    getEditState() {
-      return editState;
-    },
-    setEditState({ text, created }) {
-      editState.edit = true;
-      editState.task = { text, created };
-    },
-    editTask() {
-      editState.edit = false;
-      const taskIndex = taskListActive.findIndex(
-        task => task.created === editState.task.created,
-      );
-      taskListActive.splice(taskIndex, 1, editState.task);
+    editTask(task) {
+      const taskIndex = taskListActive.findIndex(item => item.id === task.id);
+      taskListActive.splice(taskIndex, 1, task);
     },
   };
 };

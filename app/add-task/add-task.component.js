@@ -3,13 +3,15 @@ angular.module('addTask').component('addTask', {
   controller: [
     '$scope',
     'taskFactory',
-    ($scope, taskFactory) => {
+    '$location',
+    ($scope, taskFactory, $location) => {
       $scope.newTaskName = '';
 
       $scope.addTask = () => {
         if ($scope.addTaskForm.$valid) {
           taskFactory.addTask($scope.newTaskName);
           $scope.newTaskName = '';
+          $location.path('/');
         }
       };
     },

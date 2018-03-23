@@ -1,4 +1,5 @@
 import angular from 'angular';
+import ngRoute from 'angular-route';
 
 require('./active-task-list/active-task-list.module');
 require('./completed-task-list/completed-task-list.module');
@@ -6,16 +7,37 @@ require('./add-task/add-task.module');
 require('./edit-task/edit-task.module');
 
 import taskFactory from './factories/tasks-factory';
-
 import daysPassed from './filters/days-passed';
 
-export const app = angular.module('app', [
-  'activeTaskList',
-  'completedTaskList',
-  'addTask',
-  'editTask',
-]);
+angular
+  .module('app', [
+    'activeTaskList',
+    'completedTaskList',
+    'addTask',
+    'editTask',
+    ngRoute,
+  ])
+  .factory('taskFactory', taskFactory)
+  .filter('daysPassed', daysPassed)
+  .config([
+    '$locationProvider',
+    '$routeProvider',
+    function config($locationProvider, $routeProvider) {
+      $locationProvider.hashPrefix('!');
 
-app.factory('taskFactory', taskFactory);
-
-app.filter('daysPassed', daysPassed);
+      $routeProvider
+        .when('/', {
+          template: `<div>
+            <active-task-list></active-task-list>
+            <completed-task-list></completed-task-list>
+          </div>`,
+        })
+        .when('/add', {
+          template: '<add-task></add-task>',
+        })
+        .when('/edit/:id', {
+          template: '<edit-task></edit-task>',
+        })
+        .otherwise('/');
+    },
+  ]);
