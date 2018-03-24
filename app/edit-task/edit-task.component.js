@@ -3,12 +3,22 @@ angular.module('editTask').component('editTask', {
   controller: [
     '$scope',
     'taskFactory',
-    ($scope, taskFactory) => {
-      $scope.state = taskFactory.getEditState();
+    '$location',
+    '$routeParams',
+    ($scope, taskFactory, $location, $routeParams) => {
+      const task = taskFactory.getActiveTasks().find(task => {
+        return task.id === +$routeParams.id;
+      });
+
+      $scope.newTaskText = task.text;
 
       $scope.editTask = () => {
         if ($scope.editTaskForm.$valid) {
-          taskFactory.editTask();
+          taskFactory.editTask({
+            ...task,
+            text: $scope.newTaskText,
+          });
+          $location.path('/');
         }
       };
     },

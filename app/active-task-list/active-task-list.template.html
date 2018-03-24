@@ -7,7 +7,7 @@
 </div>
 <ul ng-repeat="task in tasks | orderBy: sortParam">
   <li>
-    <span ng-click="editTask(task)">{{ task.text }}</span>
+    <a href="#!/edit/{{task.id}}">{{ task.text }}</a>
     <button ng-click="completeTask(task)">complete</button>
     <button ng-click="removeTask(task)">delete</button>
     <br> Created: {{task.created | date : 'mediumDate'}}

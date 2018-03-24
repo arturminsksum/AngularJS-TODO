@@ -1,16 +1,17 @@
-import taskListActiveJSON from '../json/task-list-active.json';
-import taskListCompletedJSON from '../json/task-list-completed.json';
-import { findIndex } from 'rxjs/operator/findIndex';
+export default $resource => {
+  let taskListActive = $resource('./app/json/task-list-active.json').query(
+    { method: 'GET' },
+    response => {
+      return response;
+    },
+  );
 
-export default () => {
-  let taskListActive = taskListActiveJSON;
-
-  let taskListComleted = taskListCompletedJSON;
-
-  let editState = {
-    edit: false,
-    task: {},
-  };
+  let taskListComleted = $resource('./app/json/task-list-completed.json').query(
+    { method: 'GET' },
+    response => {
+      return response;
+    },
+  );
 
   return {
     // active tasks
@@ -19,6 +20,7 @@ export default () => {
     },
     addTask(text) {
       taskListActive.push({
+        id: Date.now(),
         text,
         created: new Date().toJSON(),
       });
@@ -39,19 +41,9 @@ export default () => {
       taskListComleted.splice(taskListComleted.indexOf(task), 1);
     },
     // edit task
-    getEditState() {
-      return editState;
-    },
-    setEditState({ text, created }) {
-      editState.edit = true;
-      editState.task = { text, created };
-    },
-    editTask() {
-      editState.edit = false;
-      const taskIndex = taskListActive.findIndex(
-        task => task.created === editState.task.created,
-      );
-      taskListActive.splice(taskIndex, 1, editState.task);
+    editTask(task) {
+      const taskIndex = taskListActive.findIndex(item => item.id === task.id);
+      taskListActive.splice(taskIndex, 1, task);
     },
   };
 };

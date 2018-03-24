@@ -1,7 +1,7 @@
-<div ng-show="state.edit">
+<div>
   <h3>Edit a Task</h3>
   <form name="editTaskForm" ng-submit="editTask()" novalidate>
-    <input type="text" name="editDescription" placeholder="Description" ng-model="state.task.text" ng-model-options="{ updateOn: 'blur' }"
+    <input type="text" name="editDescription" placeholder="Description" ng-model="newTaskText" ng-model-options="{ updateOn: 'blur' }"
       ng-required="true" ng-minlength="20" />
     <input type="submit" value="Save" />
     <br>
