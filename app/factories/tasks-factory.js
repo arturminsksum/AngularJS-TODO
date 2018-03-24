@@ -1,16 +1,16 @@
 export default $resource => {
-  let taskListActive = $resource('./app/json/task-list-active.json').query(
-    { method: 'GET' },
+  let taskListActive = $resource("./app/json/task-list-active.json").query(
+    { method: "GET" },
     response => {
       return response;
-    },
+    }
   );
 
-  let taskListComleted = $resource('./app/json/task-list-completed.json').query(
-    { method: 'GET' },
+  let taskListComleted = $resource("./app/json/task-list-completed.json").query(
+    { method: "GET" },
     response => {
       return response;
-    },
+    }
   );
 
   return {
@@ -22,7 +22,7 @@ export default $resource => {
       taskListActive.push({
         id: Date.now(),
         text,
-        created: new Date().toJSON(),
+        created: new Date().toJSON()
       });
     },
     removeTask(task) {
@@ -44,6 +44,6 @@ export default $resource => {
     editTask(task) {
       const taskIndex = taskListActive.findIndex(item => item.id === task.id);
       taskListActive.splice(taskIndex, 1, task);
-    },
+    }
   };
 };

@@ -1,19 +1,14 @@
-angular.module('addTask').component('addTask', {
-  templateUrl: 'app/add-task/add-task.template.html',
+angular.module("addTask").component("addTask", {
+  templateUrl: "app/add-task/add-task.template.html",
   controller: [
-    '$scope',
-    'taskFactory',
-    '$location',
-    ($scope, taskFactory, $location) => {
-      $scope.newTaskName = '';
-
-      $scope.addTask = () => {
-        if ($scope.addTaskForm.$valid) {
-          taskFactory.addTask($scope.newTaskName);
-          $scope.newTaskName = '';
-          $location.path('/');
-        }
+    "$scope",
+    "taskFactory",
+    "$location",
+    function($scope, taskFactory, $location) {
+      this.addTask = function(newTaskName) {
+        taskFactory.addTask(newTaskName);
+        $location.path("/");
       };
-    },
-  ],
+    }
+  ]
 });
