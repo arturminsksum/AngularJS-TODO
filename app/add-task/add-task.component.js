@@ -1,12 +1,11 @@
 angular.module("addTask").component("addTask", {
   templateUrl: "app/add-task/add-task.template.html",
   controller: [
-    "$scope",
     "taskFactory",
     "$location",
-    function($scope, taskFactory, $location) {
-      this.addTask = function(newTaskName) {
-        taskFactory.addTask(newTaskName);
+    function(taskFactory, $location) {
+      this.addTask = function(taskText) {
+        taskFactory.addTask(taskText);
         $location.path("/");
       };
     }

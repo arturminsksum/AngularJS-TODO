@@ -1,17 +1,15 @@
 angular.module("taskForm").component("taskForm", {
   templateUrl: "app/task-form/task-form.template.html",
   bindings: {
-    taskAction: "&"
+    taskAction: "&",
+    taskText: "="
   },
   controller: [
     "$scope",
-    "taskFactory",
-    "$location",
-    function($scope, taskFactory, $location) {
-      $scope.newTaskName = "";
-      $scope.onSubmit = () => {
-        if ($scope.addTaskForm.$valid) {
-          this.taskAction({ newTaskName: $scope.newTaskName });
+    function($scope) {
+      this.onSubmit = () => {
+        if ($scope.taskForm.$valid) {
+          this.taskAction({ taskText: this.taskText });
         }
       };
     }

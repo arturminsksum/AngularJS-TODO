@@ -1,10 +1,10 @@
-<form name="addTaskForm" ng-submit="onSubmit(newTaskName)" novalidate>
-  <input type="text" name="description" placeholder="Description" ng-model="newTaskName" ng-model-options="{ updateOn: 'blur' }"
+<form ng-init="$ctrl.onInit()" name="taskForm" ng-submit="$ctrl.onSubmit(taskText)" novalidate>
+  <input type="text" name="description" placeholder="Description" ng-model="$ctrl.taskText" ng-model-options="{ updateOn: 'blur' }"
     ng-required="true" ng-minlength="20" />
-  <input type="submit" value="Add" />
+  <input type="submit" value="Save" />
   <br>
-  <div ng-show="addTaskForm.$submitted">
-    <span ng-show="addTaskForm.description.$error.minlength">Min description length 20 characters.</span>
-    <span ng-show="addTaskForm.description.$error.required">Please add description.</span>
+  <div ng-show="taskForm.$submitted">
+    <span ng-show="taskForm.description.$error.minlength">Min description length 20 characters.</span>
+    <span ng-show="taskForm.description.$error.required">Please add description.</span>
   </div>
 </form>
