@@ -1,16 +1,8 @@
-<h3>Active ({{ tasks.length }})</h3>
-<span ng-if="tasks.length === 0">You have no active tasks!</span>
-<div ng-if="tasks.length > 1">
-  <span>Sort by:</span>
-  <button ng-click="sortBy('text')">Name</button>
-  <button ng-click="sortBy('created | daysPassed')">Date</button>
-</div>
-<ul ng-repeat="task in tasks | orderBy: sortParam">
+<h3>Article amount: {{ tasks.length }}</h3>
+<ul ng-repeat="task in tasks | orderBy: 'created | daysPassed'">
   <li>
     <a href="#!/edit/{{task.id}}">{{ task.text }}</a>
-    <button ng-click="completeTask(task)">complete</button>
     <button ng-click="removeTask(task)">delete</button>
     <br> Created: {{task.created | date : 'mediumDate'}}
-    <br> Days passed: {{task.created | daysPassed}}
   </li>
 </ul>

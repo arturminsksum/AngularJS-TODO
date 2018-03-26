@@ -9,20 +9,6 @@ angular.module('activeTaskList').component('activeTaskList', {
       $scope.removeTask = task => {
         taskFactory.removeTask(task);
       };
-
-      $scope.completeTask = task => {
-        taskFactory.moveToCompleted(task);
-      };
-
-      $scope.editTask = task => {
-        taskFactory.setEditState(task);
-      };
-
-      // sorting
-      $scope.sortParam = 'created | daysPassed';
-      $scope.sortBy = function(sortParam) {
-        $scope.sortParam = sortParam;
-      };
     },
   ],
 });
