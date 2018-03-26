@@ -2,7 +2,8 @@ import angular from 'angular';
 import ngRoute from 'angular-route';
 import ngResource from 'angular-resource';
 
-require('./active-task-list/active-task-list.module');
+require('./task-list/task-list.module');
+require('./task/task.module');
 require('./add-task/add-task.module');
 require('./edit-task/edit-task.module');
 require('./task-form/task-form.module');
@@ -12,7 +13,8 @@ import daysPassed from './filters/days-passed';
 
 angular
   .module('app', [
-    'activeTaskList',
+    'taskList',
+    'task',
     'addTask',
     'editTask',
     'taskForm',
@@ -29,12 +31,15 @@ angular
 
       $routeProvider
         .when('/', {
-          template: '<active-task-list></active-task-list>',
+          template: '<task-list></task-list>',
         })
-        .when('/add', {
+        .when('/:id', {
+          template: '<task></task>',
+        })
+        .when('/admin/add', {
           template: '<add-task></add-task>',
         })
-        .when('/edit/:id', {
+        .when('/admin/edit/:id', {
           template: '<edit-task></edit-task>',
         })
         .otherwise('/');

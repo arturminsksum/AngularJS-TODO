@@ -1,21 +1,21 @@
-angular.module("editTask").component("editTask", {
-  templateUrl: "app/edit-task/edit-task.template.html",
+angular.module('editTask').component('editTask', {
+  templateUrl: 'app/edit-task/edit-task.template.html',
   controller: [
-    "taskFactory",
-    "$location",
-    "$routeParams",
+    'taskFactory',
+    '$location',
+    '$routeParams',
     function(taskFactory, $location, $routeParams) {
-      this.task = taskFactory.getActiveTasks().find(task => {
-        return task.id === +$routeParams.id;
+      this.task = taskFactory.getTasks().find(task => {
+        return task._id === $routeParams.id;
       });
 
       this.editTask = function(taskText) {
         taskFactory.editTask({
           ...this.task,
-          text: taskText
+          text: taskText,
         });
-        $location.path("/");
+        $location.path('/');
       };
-    }
-  ]
+    },
+  ],
 });

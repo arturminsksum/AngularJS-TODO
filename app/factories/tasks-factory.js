@@ -1,19 +1,23 @@
 const api = 'http://localhost:3000/api/';
 
 export default $resource => {
-  let taskList = $resource(api).query({ method: 'GET' }, response => response);
+  let taskList = $resource(api).query();
 
   return {
-    getActiveTasks() {
+    getTasks() {
       return taskList;
     },
-    addTask(text) {
-      taskList.push({
-        id: Date.now(),
-        text,
-        created: new Date().toJSON(),
+
+    getTask(id) {
+      return $resource(api + id).query();
+    },
+
+    addTask(task) {
+      $resource(api + 'add').save(JSON.stringify(task), task => {
+        taskList.push(task);
       });
     },
+
     removeTask(id) {
       return $resource(api + id)
         .delete()
@@ -24,8 +28,14 @@ export default $resource => {
     },
     // edit task
     editTask(task) {
-      const taskIndex = taskList.findIndex(item => item.id === task.id);
-      taskList.splice(taskIndex, 1, task);
+      return $resource(api + task._id, null, {
+        update: { method: 'PUT' },
+      })
+        .update(JSON.stringify(task))
+        .$promise.then(
+          () => console.log('update'),
+          error => console.log(error),
+        );
     },
   };
 };
