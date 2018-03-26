@@ -1,8 +1,8 @@
 <h3>Article amount: {{ tasks.length }}</h3>
 <ul ng-repeat="task in tasks | orderBy: 'created | daysPassed'">
   <li>
-    <a href="#!/edit/{{task.id}}">{{ task.text }}</a>
+    <a href="#!/edit/{{task.id}}">{{ task.title }}</a>
     <button ng-click="removeTask(task)">delete</button>
-    <br> Created: {{task.created | date : 'mediumDate'}}
+    <br> Published at: {{task.publishedAt | date : 'mediumDate'}}
   </li>
 </ul>

@@ -1,5 +1,5 @@
 export default $resource => {
-  let taskListActive = $resource('./app/json/task-list-active.json').query(
+  let taskListActive = $resource('http://localhost:3000/api/articles').query(
     { method: 'GET' },
     response => {
       return response;
