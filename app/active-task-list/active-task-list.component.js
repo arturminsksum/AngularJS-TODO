@@ -6,8 +6,10 @@ angular.module('activeTaskList').component('activeTaskList', {
     ($scope, taskFactory) => {
       $scope.tasks = taskFactory.getActiveTasks();
 
-      $scope.removeTask = task => {
-        taskFactory.removeTask(task);
+      $scope.removeTask = id => {
+        taskFactory.removeTask(id).then(() => {
+          $scope.tasks = taskFactory.getActiveTasks();
+        });
       };
     },
   ],

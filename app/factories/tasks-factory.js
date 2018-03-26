@@ -1,29 +1,31 @@
+const api = 'http://localhost:3000/api/';
+
 export default $resource => {
-  let taskListActive = $resource('http://localhost:3000/api/articles').query(
-    { method: 'GET' },
-    response => {
-      return response;
-    },
-  );
+  let taskList = $resource(api).query({ method: 'GET' }, response => response);
 
   return {
     getActiveTasks() {
-      return taskListActive;
+      return taskList;
     },
     addTask(text) {
-      taskListActive.push({
+      taskList.push({
         id: Date.now(),
         text,
         created: new Date().toJSON(),
       });
     },
-    removeTask(task) {
-      taskListActive.splice(taskListActive.indexOf(task), 1);
+    removeTask(id) {
+      return $resource(api + id)
+        .delete()
+        .$promise.then(
+          () => (taskList = taskList.filter(task => task._id !== id)),
+          error => console.log(error),
+        );
     },
     // edit task
     editTask(task) {
-      const taskIndex = taskListActive.findIndex(item => item.id === task.id);
-      taskListActive.splice(taskIndex, 1, task);
+      const taskIndex = taskList.findIndex(item => item.id === task.id);
+      taskList.splice(taskIndex, 1, task);
     },
   };
 };
