@@ -1,8 +1,14 @@
-<h3>Article amount: {{ tasks.length }}</h3>
-<ul ng-repeat="task in tasks | orderBy: 'created | daysPassed'">
-  <li>
-    <a href="#!/{{task._id}}">{{ task.title }}</a>
-    <button ng-click="removeTask(task._id)">delete</button>
-    <br> Published at: {{task.publishedAt | date : 'mediumDate'}}
-  </li>
-</ul>
+<h3 class="is-size-3">Article amount: {{ tasks.length }}</h3>
+<br>
+<section>
+  <article class="media box" ng-repeat="task in tasks | orderBy: 'created | daysPassed'">
+    <div class="media-content">
+      <div class="content">
+        <a class="title" href="#!/{{task._id}}">{{ task.title }}</a>
+        <p>
+          Published at: {{task.publishedAt | date : 'mediumDate'}}
+        </p>
+      </div>
+    </div>
+  </article>
+</section>

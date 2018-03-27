@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>ArchiNews</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
   <style>
     [ng-cloak] {
       display: none;
@@ -16,12 +17,42 @@
 <body>
 
   <div ng-app="app" ng-cloak>
-    <nav>
-      <a href="#!/">Home</a>
-      <a href="#!/admin/add">Publish</a>
-    </nav>
-    <div ng-view></div>
+    <div class="container">
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item title" href="/">ArchiNews</a>
+        </div>
+        <div class="navbar-menu">
+          <a class="navbar-item" href="#!/">Home</a>
+          <a class="navbar-item" href="#!/admin/add">Add Post</a>
+        </div>
+      </nav>
+    </div>
 
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Choose your channel</h1>
+          <h2 class="subtitle">All sources with English news</h2>
+        </div>
+      </div>
+    </section>
+    <br>
+    <div class="container">
+      <div ng-view></div>
+    </div>
+    <br>
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+            <strong>ArchiNews</strong> by
+            <a href="">Artur Minsk</a>. The source code is licensed
+            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content is provided by
+            <a href="https://newsapi.org/">News API</a>.</p>
+        </div>
+      </div>
+    </footer>
   </div>
 
 </body>
