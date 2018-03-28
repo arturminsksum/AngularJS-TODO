@@ -1,6 +1,12 @@
 const router = require('express').Router();
 const Article = require('./schema');
 
+const handleError = (text, next) => {
+  const err = new Error(text);
+  err.status = 404;
+  next(err);
+};
+
 router.get('/api', function(req, res, next) {
   Article.find({}, function(err, articles) {
     res.send(articles);
