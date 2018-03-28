@@ -1,2 +1,6 @@
-<h3>Edit the Article</h3>
-<task-form task-action="$ctrl.editTask(taskText)" task-text="$ctrl.task.title"></task-form>
+<div class="columns">
+  <div class="column is-half is-offset-one-quarter">
+    <h3>Edit the Article</h3>
+    <task-form task-action="$ctrl.editTask(task)" task="$ctrl.task"></task-form>
+  </div>
+</div>

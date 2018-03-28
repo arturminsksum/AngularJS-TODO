@@ -4,16 +4,8 @@ angular.module('addTask').component('addTask', {
     'taskFactory',
     '$location',
     function(taskFactory, $location) {
-      this.addTask = function(taskText) {
-        taskFactory.addTask({
-          id: 'abc-news',
-          source: 'ABC News',
-          author: 'ABC News',
-          title: taskText,
-          description:
-            "Dr. Jennifer Ashton kicks off a month-long 'Water Challenge' to look at how drinking more water can affect your health.",
-          url: 'http://abcnews.go.com/GMA/video/water-challenge-52783678',
-        });
+      this.addTask = function(task) {
+        taskFactory.addTask(task);
         $location.path('/');
       };
     },

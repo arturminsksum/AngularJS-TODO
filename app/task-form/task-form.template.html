@@ -1,37 +1,29 @@
-<form ng-init="$ctrl.onInit()" name="taskForm" ng-submit="$ctrl.onSubmit(taskText)" novalidate>
-  <input type="text" name="description" placeholder="Description" ng-model="$ctrl.taskText" ng-model-options="{ updateOn: 'blur' }"
-    ng-required="true" ng-minlength="20" />
-  <input type="submit" value="Save" />
-  <br>
-  <div ng-show="taskForm.$submitted">
-    <span ng-show="taskForm.description.$error.minlength">Min description length 20 characters.</span>
-    <span ng-show="taskForm.description.$error.required">Please add description.</span>
+<form name="taskForm" ng-submit="$ctrl.onSubmit(taskText)" novalidate>
+  <div class="field">
+    <label class="label">Title</label>
+    <div class="control">
+      <input class="input" type="text" placeholder="Title" name="title" ng-model="$ctrl.task.title" ng-model-options="{ updateOn: 'blur' }"
+        ng-required="true" ng-minlength="5">
+    </div>
+    <div ng-show="taskForm.$submitted">
+      <p class="help is-danger" ng-show="taskForm.title.$error.minlength">Min title length 5 characters.</p>
+      <p class="help is-danger" ng-show="taskForm.title.$error.required">Please add title.</p>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Description</label>
+    <div class="control">
+      <textarea class="textarea" placeholder="Description" name="description" ng-model="$ctrl.task.description" ng-model-options="{ updateOn: 'blur' }"
+        ng-required="true" ng-minlength="20"></textarea>
+    </div>
+    <div ng-show="taskForm.$submitted">
+      <p class="help is-danger" ng-show="taskForm.description.$error.minlength">Min description length 20 characters.</p>
+      <p class="help is-danger" ng-show="taskForm.description.$error.required">Please add description.</p>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <button class="button is-primary" type="submit">Save</button>
+    </div>
   </div>
 </form>
-
-<div class="columns">
-  <div class="column is-half is-offset-one-quarter">
-    <form method="post">
-      <input type="hidden" name="_method" value="put">
-      <div class="field">
-        <label class="label">Title</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="Title" name="title" value="Facebook begins privacy push ahead of tough new European law">
-        </div>
-        <p class="help is-danger">This email is invalid</p>
-      </div>
-      <div class="field">
-        <label class="label">Description</label>
-        <div class="control">
-          <textarea class="textarea" placeholder="Description" name="description">Facebook’s new privacy center tool is a response the upcoming General Data Protection Regulation which will be introduced in May</textarea>
-        </div>
-        <p class="help is-danger">This email is invalid</p>
-      </div>
-      <div class="field">
-        <div class="control">
-          <button class="button is-primary" type="submit">Save</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
