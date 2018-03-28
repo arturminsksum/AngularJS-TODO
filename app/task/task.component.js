@@ -3,8 +3,15 @@ angular.module('task').component('task', {
   controller: [
     'taskFactory',
     '$routeParams',
-    function(taskFactory, $routeParams) {
+    '$location',
+    function(taskFactory, $routeParams, $location) {
       this.task = taskFactory.getTask($routeParams.id);
+
+      this.removeTask = id => {
+        taskFactory.removeTask(id).then(() => {
+          $location.path('/');
+        });
+      };
     },
   ],
 });
