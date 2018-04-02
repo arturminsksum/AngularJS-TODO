@@ -14,19 +14,21 @@ router.get('/api', function(req, res, next) {
 });
 
 router.get('/api/:id', function(req, res, next) {
-  Article.find({ _id: req.params.id }, function(err, article) {
+  const { id } = req.params;
+  Article.find({ _id: id }, function(err, article) {
     res.send(article);
   });
 });
 
 router.post('/api/add', function(req, res, next) {
+  const { id, source, author, title, description, url, publishedAt } = req.body;
   const article = new Article({
-    id: req.body.id,
-    source: req.body.source,
-    author: req.body.author,
-    title: req.body.title,
-    description: req.body.description,
-    url: req.body.url,
+    id: id,
+    source: source,
+    author: author,
+    title: title,
+    description: description,
+    url: url,
     publishedAt: Date.now(),
   });
   article.save(function(err, raw) {
@@ -36,9 +38,11 @@ router.post('/api/add', function(req, res, next) {
 });
 
 router.put('/api/:id', function(req, res, next) {
+  const { id } = req.params;
+  const { title, description } = req.body;
   Article.update(
-    { _id: req.params.id },
-    { title: req.body.title, description: req.body.description },
+    { _id: id },
+    { title: title, description: description },
     function(err, raw) {
       if (err) handleError('Article Not Updated', next);
       res.send('Article was updated');
@@ -47,7 +51,8 @@ router.put('/api/:id', function(req, res, next) {
 });
 
 router.delete('/api/:id', function(req, res, next) {
-  Article.find({ _id: req.params.id }).remove(function(err, raw) {
+  const { id } = req.params;
+  Article.find({ _id: id }).remove(function(err, raw) {
     if (err) return handleError('Article Not Deleted', next);
     res.send('Article was deleted');
   });
