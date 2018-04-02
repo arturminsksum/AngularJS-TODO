@@ -22,26 +22,6 @@ angular
     ngResource,
   ])
   .factory('taskFactory', ['$resource', taskFactory])
-  .filter('daysPassed', daysPassed)
-  .config([
-    '$locationProvider',
-    '$routeProvider',
-    function config($locationProvider, $routeProvider) {
-      $locationProvider.hashPrefix('!');
+  .filter('daysPassed', daysPassed);
 
-      $routeProvider
-        .when('/', {
-          template: '<task-list></task-list>',
-        })
-        .when('/:id', {
-          template: '<task></task>',
-        })
-        .when('/admin/add', {
-          template: '<add-task></add-task>',
-        })
-        .when('/admin/edit/:id', {
-          template: '<edit-task></edit-task>',
-        })
-        .otherwise('/');
-    },
-  ]);
+require('./app.config');
